@@ -112,36 +112,43 @@ public class Kosmoloty {
     public static void main(String[] args) {
         long start = System.nanoTime();
         boolean wrong_data = false;
-        int size_x = Integer.parseInt(args[0]);
-        int size_y = Integer.parseInt(args[1]);
-        StringBuilder data = new StringBuilder();
-        Scanner sc = new Scanner(System.in);
-        while(sc.hasNextLine()) {
-            data.append(sc.nextLine());
-        }
-        String[] data_array = data.toString().split("\\\\n");
-        if (size_x < 1 || size_x > 100000 || size_y < 1 || size_y > 100000) {
-            wrong_data = true;
-        }
         ArrayList<Kosmoloty> kosmoloty = new ArrayList<>();
-        if (!wrong_data) {
-            for (int i = 0; i< data_array.length; i++) {
-                String[] line = data_array[i].split(",");
-                Kosmoloty kos = new Kosmoloty(line[0], Integer.parseInt(line[1]), Integer.parseInt(line[2]), Integer.parseInt(line[3]), Integer.parseInt(line[4]));
-                if (!checkKosmolot(kos, size_x, size_y)) {
-                    wrong_data = true;
-                }
-                else {
-                    for(int j = 0; j < kosmoloty.size(); j++) {
-                        if (kos.getName().equals(kosmoloty.get(j).getName())) {
-                            wrong_data = true;
-                        }
-                        if (kos.getPos_x() == kosmoloty.get(j).getPos_x() && kos.getPos_y() == kosmoloty.get(j).getPos_y()) {
-                            wrong_data = true;
-                        }
+        int size_x = 0;
+        int size_y = 0;
+        if (args.length != 2) {
+           wrong_data = true;
+        }
+        else {
+            size_x = Integer.parseInt(args[0]);
+            size_y = Integer.parseInt(args[1]);
+            StringBuilder data = new StringBuilder();
+            Scanner sc = new Scanner(System.in);
+            while(sc.hasNextLine()) {
+                data.append(sc.nextLine());
+            }
+            String[] data_array = data.toString().split("\\\\n");
+            if (size_x < 1 || size_x > 100000 || size_y < 1 || size_y > 100000) {
+                wrong_data = true;
+            }
+            if (!wrong_data) {
+                for (int i = 0; i< data_array.length; i++) {
+                    String[] line = data_array[i].split(",");
+                    Kosmoloty kos = new Kosmoloty(line[0], Integer.parseInt(line[1]), Integer.parseInt(line[2]), Integer.parseInt(line[3]), Integer.parseInt(line[4]));
+                    if (!checkKosmolot(kos, size_x, size_y)) {
+                        wrong_data = true;
                     }
-                    if (!wrong_data) {
-                        kosmoloty.add(kos);
+                    else {
+                        for(int j = 0; j < kosmoloty.size(); j++) {
+                            if (kos.getName().equals(kosmoloty.get(j).getName())) {
+                                wrong_data = true;
+                            }
+                            if (kos.getPos_x() == kosmoloty.get(j).getPos_x() && kos.getPos_y() == kosmoloty.get(j).getPos_y()) {
+                                wrong_data = true;
+                            }
+                        }
+                        if (!wrong_data) {
+                            kosmoloty.add(kos);
+                        }
                     }
                 }
             }
