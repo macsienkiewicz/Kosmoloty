@@ -177,7 +177,6 @@ public class Kosmoloty {
             }
             System.out.println(winner);
         }
-
     }
 
 
